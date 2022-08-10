@@ -1,0 +1,8 @@
+com.shulgin
+com.shulgin.entity
+com.shulgin.ftpclient
+com.shulgin.ftpclient.commands
+com.shulgin.ftpclient.connections
+com.shulgin.ftpclient.exceptions
+com.shulgin.jsonparser
+com.shulgin.services

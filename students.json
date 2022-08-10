@@ -1,0 +1,28 @@
+{
+  "students" : [
+		{
+			"id": 1,
+			"name": "Шульгин Денис Андреевич"
+		},
+		{
+			"id": 2,
+			"name": "student2"
+		},
+		{
+			"id": 3,
+			"name": "student3"
+		},
+		{
+			"id": 4,
+			"name": "student4"
+		},
+		{
+			"id": 5,
+			"name": "sssss"
+		},
+		{
+			"id": 6,
+			"name": "sssss"
+		}
+	]
+}
