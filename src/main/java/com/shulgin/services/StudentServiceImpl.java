@@ -2,38 +2,35 @@ package com.shulgin.services;
 
 import com.shulgin.entity.Student;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class StudentServiceImpl implements StudentService {
 
-    private final List<Student> students;
-
-    public StudentServiceImpl(List<Student> students) {
-        this.students = students;
-    }
+    private final List<Student> students = new ArrayList<>();
 
     @Override
-    public synchronized void addStudent(Student student) {
+    public void addStudent(Student student) {
         int id = getNextId();
         student.setId(id);
         this.students.add(student);
     }
 
     @Override
-    public synchronized void addStudents(List<Student> students) {
+    public void addStudents(List<Student> students) {
         this.students.addAll(students);
     }
 
     @Override
-    public synchronized List<Student> findStudentByName(String name) {
+    public List<Student> findStudentByName(String name) {
         return this.students.stream()
                 .filter(student -> student.getName().equals(name))
                 .collect(Collectors.toList());
     }
 
     @Override
-    public synchronized Student findStudentById(int id) {
+    public Student findStudentById(int id) {
         return this.students.stream()
                 .filter(student -> student.getId() == id)
                 .findFirst()
@@ -41,12 +38,16 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public synchronized void deleteStudentById(int id) {
-        this.students.remove(id);
+    public void deleteStudentById(int id) {
+        Student delStudent = this.students.stream()
+                .filter(student -> student.getId() == id)
+                .findFirst()
+                .orElse(null);
+        students.remove(delStudent);
     }
 
     @Override
-    public synchronized List<Student> findAllStudents() {
+    public List<Student> findAllStudents() {
         return this.students;
     }
 

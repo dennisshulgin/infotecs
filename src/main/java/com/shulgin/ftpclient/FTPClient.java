@@ -12,7 +12,6 @@ import java.nio.charset.StandardCharsets;
  * FTPClient класс инициализирует подключение к серверу для отправки команд.
  * Реализован паттерн "Команда".
  * Экземпляр класса передается в реализацию команды и запускает метод execute.
- * @author Denis Shulgin
  */
 public class FTPClient {
 
@@ -37,7 +36,6 @@ public class FTPClient {
         inCommand = new BufferedReader(new InputStreamReader(commandSocket.getInputStream()));
         outCommand = new BufferedWriter(new OutputStreamWriter(commandSocket.getOutputStream()));
         String response = inCommand.readLine();
-        defaultPrintStream.println(response);
     }
 
     /**

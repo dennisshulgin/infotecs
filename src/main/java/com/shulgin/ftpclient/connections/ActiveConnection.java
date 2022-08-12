@@ -1,5 +1,6 @@
 package com.shulgin.ftpclient.connections;
 
+
 import java.io.*;
 import java.net.ServerSocket;
 
@@ -9,32 +10,27 @@ import java.net.ServerSocket;
  */
 public class ActiveConnection extends Connection{
 
+    private final ServerSocket serverSocket;
+
     /**
      * Конструктор активного подключения
      * @param port порт, который будет открыт для подключения.
      */
-    public ActiveConnection(int port) {
+    public ActiveConnection(int port) throws IOException{
         super(null, port);
+        serverSocket = new ServerSocket(port);
+        serverSocket.setSoTimeout(10000);
     }
 
     /**
      * Метод открывет сокет и ждёт подключения от FTP-сервера.
+     * @throws IOException исключение при подключении.
      */
     @Override
-    public void run() {
-        InputStream is;
-        OutputStream os;
-        try {
-            ServerSocket serverSocket = new ServerSocket(port);
-            dataSocket = serverSocket.accept();
-            is = dataSocket.getInputStream();
-            os = dataSocket.getOutputStream();
-            inData = new BufferedInputStream(is);
-            outData = new BufferedOutputStream(os);
-        }catch (IOException e) {
-            System.out.println(e.getMessage());
-        }
+    public void connect() throws IOException{
+        dataSocket = serverSocket.accept();
+        inData = dataSocket.getInputStream();
+        outData = dataSocket.getOutputStream();
         connected = true;
-        while (connected);
     }
 }

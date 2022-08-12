@@ -1,9 +1,9 @@
 package com.shulgin.services;
 
+import com.shulgin.User;
+
 public interface FtpService {
-    void auth(String username, String password) throws Exception;
+    void downloadFile(User user, String path) throws Exception;
 
-    void downloadFile(String path) throws Exception;
-
-    void uploadFile(String path) throws Exception;
+    void uploadFile(User user, String path) throws Exception;
 }

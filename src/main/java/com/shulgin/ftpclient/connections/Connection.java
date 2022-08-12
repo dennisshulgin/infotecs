@@ -7,9 +7,8 @@ import java.net.Socket;
 
 /**
  * Класс Connection реализует подклюение для передачи данных между клиентом и сервером.
- * @author Denis Shulgin
  */
-public abstract class Connection implements Runnable{
+public abstract class Connection{
     protected Socket dataSocket;
 
     protected InputStream inData;
@@ -36,7 +35,7 @@ public abstract class Connection implements Runnable{
      * @param len длина записываемых данных.
      * @throws IOException исключение при записи.
      */
-    public synchronized void write(byte[] bytes, int offset, int len) throws IOException{
+    public void write(byte[] bytes, int offset, int len) throws IOException{
         outData.write(bytes, offset, len);
     }
 
@@ -45,7 +44,7 @@ public abstract class Connection implements Runnable{
      * @return количество байт доступных для чтения.
      * @throws IOException исключение при чтении.
      */
-    public synchronized int available() throws IOException{
+    public int available() throws IOException{
         return inData.available();
     }
 
@@ -55,7 +54,7 @@ public abstract class Connection implements Runnable{
      * @return количество прочитанных байт.
      * @throws IOException исключение при чтении.
      */
-    public synchronized int read(byte[] bytes) throws IOException{
+    public int read(byte[] bytes) throws IOException{
         return inData.read(bytes);
     }
 
@@ -82,9 +81,8 @@ public abstract class Connection implements Runnable{
     }
 
     /**
-     * Метод для запуска подключения.
-     * Объявлен абстактным, так как режимы инициализируют подключение по-разному.
+     * Метод инициализирует подключение к серверу.
+     * @throws IOException исключение при подключении.
      */
-    @Override
-    public abstract void run();
+    public abstract void connect() throws IOException;
 }
