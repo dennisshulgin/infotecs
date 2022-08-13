@@ -1,6 +1,6 @@
 package com.shulgin.services;
 
-import com.shulgin.User;
+import com.shulgin.entity.User;
 
 public interface FtpService {
     void downloadFile(User user, String path) throws Exception;

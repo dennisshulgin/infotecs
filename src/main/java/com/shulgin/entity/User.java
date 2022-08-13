@@ -1,4 +1,4 @@
-package com.shulgin;
+package com.shulgin.entity;
 
 public class User {
     private String remoteHost;

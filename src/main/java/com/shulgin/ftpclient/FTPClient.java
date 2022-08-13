@@ -10,7 +10,6 @@ import java.nio.charset.StandardCharsets;
 
 /**
  * FTPClient класс инициализирует подключение к серверу для отправки команд.
- * Реализован паттерн "Команда".
  * Экземпляр класса передается в реализацию команды и запускает метод execute.
  */
 public class FTPClient {
@@ -82,16 +81,6 @@ public class FTPClient {
      */
     public void setDefaultPrintStream(PrintStream printStream) {
         this.defaultPrintStream = printStream;
-    }
-
-    /**
-     * Метод выполнения команд.
-     * @param command команда.
-     * @return результат выполнения, полученный от сервера.
-     * @throws Exception исключение при выполнении команды.
-     */
-    public String execute(Command command) throws Exception {
-        return command.execute();
     }
 
     /**

@@ -6,13 +6,23 @@ import com.shulgin.services.StudentService;
 
 import java.io.IOException;
 
+/**
+ * Класс команда для получения студента по ИД.
+ */
 public class GetStudentByIdCommand implements Command{
-    private MenuExecutor menuExecutor;
+    private final MenuExecutor menuExecutor;
 
+    /**
+     * Конструктор принимает на вход MenuExecutor.
+     * @param menuExecutor ресурсы для команды.
+     */
     public GetStudentByIdCommand(MenuExecutor menuExecutor) {
         this.menuExecutor = menuExecutor;
     }
 
+    /**
+     * Метод выполняет команду.
+     */
     @Override
     public void execute() {
         StudentService studentService = menuExecutor.getStudentService();

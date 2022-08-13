@@ -11,3 +11,5 @@ services:
       - USERS=myuser|1234567
       - ADDRESS=127.0.0.1
     network_mode: "host"
+    volumes:
+      - ./files/:/ftp/myuser/

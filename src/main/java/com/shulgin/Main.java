@@ -1,6 +1,7 @@
 package com.shulgin;
 
 import com.shulgin.entity.Student;
+import com.shulgin.entity.User;
 import com.shulgin.ftpclient.FTPClient;
 import com.shulgin.jsonparser.JsonParser;
 import com.shulgin.menu.Menu;
@@ -16,6 +17,9 @@ import java.io.File;
 import java.io.InputStreamReader;
 import java.util.List;
 
+/**
+ * Основной класс запуска приложения.
+ */
 public class Main {
     private final BufferedReader console = new BufferedReader(new InputStreamReader(System.in));
     private final StudentService studentService = new StudentServiceImpl();
@@ -29,6 +33,10 @@ public class Main {
         new Main().run();
     }
 
+    /**
+     * Запуск приложения.
+     * @throws Exception исключения при работе приложения.
+     */
     public void run() throws Exception{
         loadData();
         Menu menu = loadMenu();
@@ -37,11 +45,16 @@ public class Main {
             printMenu();
             action = Integer.parseInt(console.readLine()) - 1;
             menu.doAction(action);
+            System.out.println(studentService.findAllStudents());
         }while(action != 4);
 
         exit();
     }
 
+    /**
+     * Метод загрузки данных о пользователе и установление подключения.
+     * @throws Exception исключения при загрузке.
+     */
     public void loadData() throws Exception{
         user = loadUser();
         FTPClient client = new FTPClient(user.getRemoteHost(), 21);
@@ -53,9 +66,14 @@ public class Main {
         studentService.addStudents(students);
     }
 
+    /**
+     * Метод загрузки данных о пользователе.
+     * @return возвращает объет пользователя.
+     * @throws Exception исключения загрузки пользователя.
+     */
     public User loadUser() throws Exception{
         User user = new User();
-        System.out.print("Введите host:");
+        System.out.print("Введите адрес FTP-сервера:");
         user.setRemoteHost(console.readLine());
         System.out.print("Введите логин:");
         user.setUsername(console.readLine());
@@ -67,12 +85,16 @@ public class Main {
             throw new Exception();
         }
         if(user.getType().equals("active")) {
-            System.out.print("Введите Ваш ip-адрес для активного подключения:");
+            System.out.print("Введите Ваш адрес для активного подключения:");
             user.setLocalHost(console.readLine());
         }
         return user;
     }
 
+    /**
+     * Метод загрузки меню и установления команд на слоты.
+     * @return возвращает объект меню.
+     */
     public Menu loadMenu() {
         Menu menu = new Menu();
         Command getStudentsByNameCommand = new GetStudentsByNameCommand(menuExecutor);
@@ -86,11 +108,18 @@ public class Main {
         return menu;
     }
 
+    /**
+     * Метод сохраняет файл и выгружает на сервер.
+     * @throws Exception исключение при загрузке файла на сервер.
+     */
     public void exit() throws Exception{
         json.saveStudents(studentService.findAllStudents());
         ftpService.uploadFile(user,"students.json");
     }
 
+    /**
+     * Метод выводит меню на консоль.
+     */
     public void printMenu() {
         System.out.println("1. Получение списка студентов по имени");
         System.out.println("2. Получение информации о студенте по id");

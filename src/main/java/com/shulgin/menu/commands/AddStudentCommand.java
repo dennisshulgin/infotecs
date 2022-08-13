@@ -6,13 +6,23 @@ import com.shulgin.services.StudentService;
 
 import java.io.IOException;
 
+/**
+ * Класс команда для добавления студентов в список.
+ */
 public class AddStudentCommand implements Command{
-    private MenuExecutor menuExecutor;
+    private final MenuExecutor menuExecutor;
 
+    /**
+     * Конструктор принимает на вход MenuExecutor.
+     * @param menuExecutor ресурсы для команды.
+     */
     public AddStudentCommand(MenuExecutor menuExecutor) {
         this.menuExecutor = menuExecutor;
     }
 
+    /**
+     * Метод выполняет команду.
+     */
     @Override
     public void execute() {
         StudentService studentService = menuExecutor.getStudentService();

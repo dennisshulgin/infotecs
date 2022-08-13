@@ -1,18 +1,27 @@
 package com.shulgin.menu.commands;
 
-import com.shulgin.entity.Student;
 import com.shulgin.menu.MenuExecutor;
 import com.shulgin.services.StudentService;
 
 import java.io.IOException;
 
+/**
+ * Класс команда для удаления студентов из списка.
+ */
 public class DeleteStudentByIdCommand implements Command {
-    private MenuExecutor menuExecutor;
+    private final MenuExecutor menuExecutor;
 
+    /**
+     * Конструктор принимает на вход MenuExecutor.
+     * @param menuExecutor ресурсы для команды.
+     */
     public DeleteStudentByIdCommand(MenuExecutor menuExecutor) {
         this.menuExecutor = menuExecutor;
     }
 
+    /**
+     * Метод выполняет команду.
+     */
     @Override
     public void execute() {
         StudentService studentService = menuExecutor.getStudentService();

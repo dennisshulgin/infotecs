@@ -5,4 +5,6 @@ com.shulgin.ftpclient.commands
 com.shulgin.ftpclient.connections
 com.shulgin.ftpclient.exceptions
 com.shulgin.jsonparser
+com.shulgin.menu
+com.shulgin.menu.commands
 com.shulgin.services
