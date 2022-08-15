@@ -1,7 +1,7 @@
 HELP.md
-bin/
 target/
-*.jar
+pom.xml
+/test-output
 
 ### IntelliJ IDEA ###
 .idea

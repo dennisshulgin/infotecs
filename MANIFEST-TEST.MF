@@ -1,0 +1,2 @@
+Main-Class: com.shulgin.MainTest
+Class-Path: application.jar dependencies/testng-7.6.1.jar  dependencies/jcommander-1.82.jar dependencies/jquery-3.6.0.jar dependencies/slf4j-api-1.7.36.jar

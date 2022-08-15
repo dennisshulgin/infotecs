@@ -25,7 +25,7 @@ public class Main {
     private final StudentService studentService = new StudentServiceImpl();
     private FtpService ftpService;
     private final MenuExecutor menuExecutor = new MenuExecutor(ftpService, studentService, console);
-
+    private FTPClient client;
     private JsonParser json;
     private User user;
 
@@ -47,7 +47,6 @@ public class Main {
             menu.doAction(action);
             System.out.println(studentService.findAllStudents());
         }while(action != 4);
-
         exit();
     }
 
@@ -57,7 +56,7 @@ public class Main {
      */
     public void loadData() throws Exception{
         user = loadUser();
-        FTPClient client = new FTPClient(user.getRemoteHost(), 21);
+        client = new FTPClient(user.getRemoteHost(), 21);
         ftpService = new FtpServiceImpl(client);
         ftpService.downloadFile(user, "students.json");
         File file = new File("students.json");
@@ -115,6 +114,8 @@ public class Main {
     public void exit() throws Exception{
         json.saveStudents(studentService.findAllStudents());
         ftpService.uploadFile(user,"students.json");
+        console.close();
+        client.close();
     }
 
     /**

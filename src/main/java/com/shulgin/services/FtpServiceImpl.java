@@ -9,6 +9,7 @@ import com.shulgin.ftpclient.commands.*;
  */
 public class FtpServiceImpl implements FtpService {
     private final FTPClient client;
+    private boolean isAuth;
 
     /**
      * Конструктор принимает на вход FtpClient.
@@ -16,6 +17,15 @@ public class FtpServiceImpl implements FtpService {
      */
     public FtpServiceImpl(FTPClient client) {
         this.client = client;
+    }
+
+    private void auth(User user) throws Exception {
+        Command[] commands = {
+                new UserCommand(client, user.getUsername()),
+                new PassCommand(client, user.getPassword()),
+        };
+        executeCommands(commands);
+        isAuth = true;
     }
 
     /**
@@ -26,14 +36,15 @@ public class FtpServiceImpl implements FtpService {
      */
     @Override
     public void downloadFile(User user, String path) throws Exception {
+        if(!isAuth) {
+            auth(user);
+        }
         Command[] commands = {
-                new UserCommand(client, user.getUsername()),
-                new PassCommand(client, user.getPassword()),
                 new PasvCommand(client),
                 new RetrCommand(client, path)
         };
         if(user.getType().equals("active")) {
-            commands[2] = new PortCommand(client, user.getLocalHost());
+            commands[0] = new PortCommand(client, user.getLocalHost());
         }
         executeCommands(commands);
     }
@@ -46,14 +57,15 @@ public class FtpServiceImpl implements FtpService {
      */
     @Override
     public void uploadFile(User user, String path) throws Exception {
+        if(!isAuth) {
+            auth(user);
+        }
         Command[] commands = {
-                new UserCommand(client, user.getUsername()),
-                new PassCommand(client, user.getPassword()),
                 new PasvCommand(client),
                 new StorCommand(client, path)
         };
         if(user.getType().equals("active")) {
-            commands[2] = new PortCommand(client, user.getLocalHost());
+            commands[0] = new PortCommand(client, user.getLocalHost());
         }
         executeCommands(commands);
     }

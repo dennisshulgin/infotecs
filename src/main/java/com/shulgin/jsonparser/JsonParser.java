@@ -46,7 +46,7 @@ public class JsonParser {
      * @return StringBuilder объект.
      * @throws IOException ошибка во время чтения.
      */
-    private StringBuilder readFile() throws IOException {
+    public StringBuilder readFile() throws IOException {
         StringBuilder sb = new StringBuilder();
         try (BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(file)))) {
             while(reader.ready()) {

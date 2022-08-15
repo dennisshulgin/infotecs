@@ -49,6 +49,7 @@ public class StorCommand implements Command{
             connection.write(buffer, 0, readCount);
             bytesCount -= readCount;
         }
+        connection.close();
         if(response == null || !response.startsWith("150")) {
             throw new FileUploadException();
         }

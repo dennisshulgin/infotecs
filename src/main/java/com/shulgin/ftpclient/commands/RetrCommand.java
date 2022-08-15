@@ -51,6 +51,7 @@ public class RetrCommand implements Command{
         }
         fileOutputStream.flush();
         fileOutputStream.close();
+        connection.close();
         if(response == null || !response.startsWith("150")) {
             throw new FileDownloadException();
         }

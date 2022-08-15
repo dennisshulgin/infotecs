@@ -1,2 +1,2 @@
 Main-Class: com.shulgin.Main
-Class-Path: ../bin/
+Class-Path: bin/
